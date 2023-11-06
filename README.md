@@ -89,7 +89,19 @@ This example lives in [examples/full](examples/full).
 
 # API
 
-TBD
+* `blank(len)` - draws a horizontal line for writing an answer
+* `choices(content)` - numbered lists in this method are separated a little and numbered like `"A."`
+* `correct(content)` - places a rectangle around the content when solutions are on. Useful for multiple choice questions.
+* `cover_sheet(content)` - centered content, headings are bold
+* `fill_in_blank(len, answer_content)` - draws a horizontal line for writing an answer, or with solutions enabled, shows the answer
+* `num_questions()` - counts the total number of `question()` calls in the entire document.
+* `points(num)` - assign points to a question and renders the string, with pluralization. The `total_points()`  adds up all instances of these throughout the document
+* `question(content)` - Separate numbering from headings. Group all your content for a given question here and it won't break across pages (i.e. include solutions and blanks).
+* `showing_solutions(location)` - (internal use) Returns boolean of whether or not solutions are enabled
+* `sub_points(num)` - renders the string, with pluralization(and does nothing else). Has no impact on `points()` and `total_points()`.
+* `sub_question(content)` - Restarts numbering within the question, and indents a little.
+* `total_points()` - adds up all `points()` calls in the entire document.
+
 
 # Is this actually useful?
 

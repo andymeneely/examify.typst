@@ -38,6 +38,7 @@
 	)
 }
 
+
 #let question(content) = {
 	let qnum = state("question_number", 0)
 	qnum.update(qnum => qnum + 1)
@@ -77,7 +78,7 @@
 
 // Go to the end of the document and calculate the final value
 #let total_points() = {
-	locate(loc => { state("totalpoints", 0.0).final(loc) })
+	locate(loc => state("totalpoints", 0.0).final(loc))
 }
 
 #let blank(len) = {
