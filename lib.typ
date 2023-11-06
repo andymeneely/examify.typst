@@ -1,5 +1,6 @@
-#let cfg = toml("exam.toml")
-#(cfg.solutions = true) // set to true for building answers
+#let showing_solutions(loc) = {
+	query(<show_solutions>, loc).len() > 0
+}
 
 #let cover_sheet(content) = {
 	show heading: content => {
@@ -28,16 +29,18 @@
 }
 
 #let correct(content) = {
-	if cfg.solutions {
-		rect(content, radius: 6pt, inset: 0cm, outset: 0.1cm)
-	} else {
-		content
-	}
+	locate(loc =>
+		if showing_solutions(loc) {
+			rect(content, radius: 6pt, inset: 0cm, outset: 0.1cm)
+		} else {
+			content
+		}
+	)
 }
 
 #let question(content) = {
-	let qnum = counter("question_number")
-	qnum.step()
+	let qnum = state("question_number", 0)
+	qnum.update(qnum => qnum + 1)
 	set list(indent: 0.5cm)
 	block({
 		qnum.display()
@@ -53,22 +56,23 @@
 	set list(indent: 0.5cm)
 	pad(left: 1cm, {
 		sub_qnum.display("a.")
-		[. ]
 		content
 	})
 }
 
 #let solution(content, height: 3cm) = {
-	if cfg.solutions {
-		align(center,rect(content, height: height, radius: 6pt))
-	} else {
-		rect([], height: height, stroke: none)
-	}
+	locate( loc =>
+		if showing_solutions(loc) {
+			align(center,rect(content, height: height, radius: 6pt))
+		} else {
+			rect([], height: height, stroke: none)
+		}
+	)
 }
 
 // Go to the end of the document and calculate the final value
 #let num_questions() = {
-	locate(loc => { state("question_number", 0.0).final(loc) })
+	locate(loc =>  state("question_number").final(loc) )
 }
 
 // Go to the end of the document and calculate the final value
@@ -81,9 +85,11 @@
 }
 
 #let fill_in_blank(len, answer) = {
-	if cfg.solutions {
-		$underline(answer)$
-	} else {
-		$underline(#h(len))$
-	}
+	locate( loc =>
+		if showing_solutions(loc) {
+			$underline(answer)$
+		} else {
+			$underline(#h(len))$
+		}
+	)
 }

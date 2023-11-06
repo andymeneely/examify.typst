@@ -5,3 +5,7 @@ entrypoint = "lib.typ"
 authors = ["Andy Meneely"]
 license = "MIT"
 description = "Another set of utilities to build exams."
+repository = "https://github.com/andymeneely/exam.typ"
+homepage = "https://github.com/andymeneely/exam.typ"
+compiler = "0.9.0"
+exclude = []
