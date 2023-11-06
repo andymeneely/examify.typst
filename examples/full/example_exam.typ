@@ -1,5 +1,4 @@
-// #import "@local/exam:0.1.0": *
-#import "../lib.typ": *
+#import "@local/exam:0.1.0": *
 
 #import "./questions/hello_world.typ" as hello_world
 #import "./questions/lorem_ipsum.typ" as lorem_ipsum
